@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Shopping Basket</h1>
+        <nav>
+            <ul>
+                <li><a href="bascket.html">Basket</a></li>
+                <li><a href="index.html">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <button id="checkout-btn">Order</button>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItemsContainer = document.querySelector('#cart-items');
+
+            // Retrieve items from localStorage and display them in the cart
+            const savedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            savedItems.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>${item.price}</span>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            // Checkout button event listener
+            const checkoutBtn = document.querySelector('#checkout-btn');
+            checkoutBtn.addEventListener('click', function () {
+                alert('Thank you for your order!');
+                // Clear localStorage and cart items after checkout
+                localStorage.removeItem('cartItems');
+                cartItemsContainer.innerHTML = '';
+            });
+        });
+    </script>
+</body>
+</html>
